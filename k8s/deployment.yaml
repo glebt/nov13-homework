@@ -1,0 +1,36 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: homework-numbers
+   namespace: homework
+ spec:
+   replicas: 2
+   selector:
+     matchLabels:
+       app: homework-numbers
+   template:
+     metadata:
+       labels:
+         app: homework-numbers
+     spec:
+       containers:
+       - name: homework-numbers
+         image: glebtulukin/node-web-app:1.2
+         resources:
+           limits:
+             memory: "128Mi"
+             cpu: "500m"
+         ports:
+         - containerPort: 8080
+         livenessProbe:
+           httpGet:
+             path: /health
+             port: 8080
+           initialDelaySeconds: 5
+           periodSeconds: 20
+         readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 20

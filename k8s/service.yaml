@@ -1,0 +1,12 @@
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: homework-numbers-svc
+   namespace: homework
+ spec:
+   selector:
+     app: homework-numbers
+   ports:
+   - port: 8080
+     targetPort: 8080
+   type: ClusterIP
